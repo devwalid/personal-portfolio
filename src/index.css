@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light mode (default) */
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 7%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+    --primary: 0 0% 7%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 7%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 42%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 7%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 7%;
+    --radius: 0.625rem;
+
+    --accent-red: #e11d48;
+    --accent-red-dark: #b11226;
+    --accent-grey: #9ca3af;
+    --accent-dark: #1e293b;
+  }
+
+  /* Dark mode */
+  .dark {
+    --background: 350 30% 5%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Dark mesh gradient — applied to body and visible through semi-transparent section backgrounds */
+.dark body {
+  background-color: hsl(350 30% 5%);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 5% 15%, rgba(225, 29, 72, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 90% 80%, rgba(177, 18, 38, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 40% at 50% 95%, rgba(30, 41, 59, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 50% at 70% 10%, rgba(225, 29, 72, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 25% 60%, rgba(177, 18, 38, 0.05) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Noise grain overlay — sits on top of everything for visible film-grain texture */
+.dark body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 150px 150px;
+  opacity: 0.06;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Logo Ticker Animation */
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 30s linear infinite;
+}
+
+/* Rotating border glow */
+@keyframes border-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-border-glow {
+  animation: border-rotate 3s linear infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-red);
+  color: white;
+}
+
+/* Hide default cursor on desktop devices */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* 3D Carousel */
+.carousel-3d-perspective {
+  perspective: 1800px;
+  perspective-origin: 50% 45%;
+}
+
+.carousel-3d-viewport {
+  overflow: visible !important;
+}
+
+.carousel-3d-container {
+  transform-style: preserve-3d;
+}
+
+.carousel-3d-card {
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
