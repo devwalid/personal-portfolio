@@ -205,6 +205,7 @@ export default function Services() {
                         <img
                           src={service.image}
                           alt={service.title}
+                          loading="lazy"
                           className="absolute inset-0 w-full h-full object-cover"
                         />
                       )}

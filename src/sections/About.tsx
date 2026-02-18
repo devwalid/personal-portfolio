@@ -143,6 +143,7 @@ export default function About() {
                 <img
                   src="/images/PicForWebsite.jpg"
                   alt="Walid El Omari"
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>

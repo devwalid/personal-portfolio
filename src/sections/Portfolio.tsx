@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 const projects = [
   {
@@ -65,8 +65,26 @@ function VideoCard({
   index: number;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, []);
 
   const togglePlay = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -95,21 +113,22 @@ function VideoCard({
 
   return (
     <motion.div
+      ref={cardRef}
       variants={cardVariants}
       whileHover={{ scale: 1.02 }}
       className={`group relative overflow-hidden rounded-2xl cursor-pointer transition-shadow duration-300 ${project.glow} ${
         isWide ? 'lg:col-span-4 sm:col-span-2' : ''
       }`}
     >
-      <div className={`relative ${isWide ? 'aspect-[21/9]' : 'aspect-[3/4]'}`}>
+      <div className={`relative ${isWide ? 'aspect-[21/9]' : 'aspect-[3/4]'} bg-white/5`}>
         {/* Video */}
         <video
           ref={videoRef}
-          src={project.video}
+          src={isVisible ? project.video : undefined}
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           onEnded={() => setIsPlaying(false)}
           className="absolute inset-0 w-full h-full object-cover"
         />

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
 
 const leftVideos = [
   '/Videos/1.mp4',
@@ -47,14 +48,35 @@ const itemVariants = {
 };
 
 function VideoCard({ src }: { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="relative w-[180px] md:w-[240px] lg:w-[280px] aspect-[9/16] rounded-2xl overflow-hidden flex-shrink-0">
+    <div className="relative w-[180px] md:w-[240px] lg:w-[280px] aspect-[9/16] rounded-2xl overflow-hidden flex-shrink-0 bg-white/5">
       <video
-        src={src}
+        ref={ref}
+        src={isVisible ? src : undefined}
         autoPlay
         muted
         loop
         playsInline
+        preload="none"
         className="w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-black/30" />
@@ -110,7 +132,7 @@ export default function Hero() {
         {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-20 pointer-events-none" />
         <div className="animate-marquee-up space-y-3" style={{ animationDuration: '45s' }}>
-          {[...leftVideos, ...leftVideos, ...leftVideos, ...leftVideos].map((src, i) => (
+          {[...leftVideos, ...leftVideos].map((src, i) => (
             <VideoCard key={`left-${i}`} src={src} />
           ))}
         </div>
@@ -128,7 +150,7 @@ export default function Hero() {
         {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-20 pointer-events-none" />
         <div className="animate-marquee-down space-y-3" style={{ animationDuration: '45s' }}>
-          {[...rightVideos, ...rightVideos, ...rightVideos, ...rightVideos].map((src, i) => (
+          {[...rightVideos, ...rightVideos].map((src, i) => (
             <VideoCard key={`right-${i}`} src={src} />
           ))}
         </div>
