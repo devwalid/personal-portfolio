@@ -67,6 +67,12 @@ function VideoCard({ src }: { src: string }) {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const video = ref.current;
+    if (!video || !isVisible) return;
+    video.play().catch(() => {});
+  }, [isVisible]);
+
   return (
     <div className="relative w-[180px] md:w-[240px] lg:w-[280px] aspect-[9/16] rounded-2xl overflow-hidden flex-shrink-0 bg-white/5">
       <video
@@ -196,7 +202,7 @@ export default function Hero() {
               I'm <span className="text-foreground font-medium">Walid El Omari</span> — I edit
               {' '}<span className="text-foreground font-medium">UGC</span>,
               {' '}<span className="text-foreground font-medium">Instagram Reels</span>, and
-              {' '}<span className="text-foreground font-medium">ad videos</span> that
+              {' '}<span className="text-foreground font-medium">Ad Videos</span> that
               {' '}help brands grow on social media.
             </p>
           </motion.div>
