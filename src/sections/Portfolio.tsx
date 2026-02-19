@@ -107,11 +107,11 @@ function VideoCard({
         {/* Video */}
         <video
           ref={videoRef}
-          src={project.video}
+          src={`${project.video}#t=0.001`}
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           onEnded={() => setIsPlaying(false)}
           className="absolute inset-0 w-full h-full object-cover"
         />

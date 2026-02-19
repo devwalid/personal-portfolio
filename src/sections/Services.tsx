@@ -53,6 +53,7 @@ export default function Services() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const slidesRef = useRef<(HTMLDivElement | null)[]>([]);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   // Apply 3D transforms on every scroll frame for smooth orbital motion
   const applySlideStyles = useCallback(() => {
@@ -121,6 +122,18 @@ export default function Services() {
       emblaApi.off('select', onSelect);
     };
   }, [emblaApi, applySlideStyles]);
+
+  // Play/pause videos based on active slide (fixes mobile autoplay)
+  useEffect(() => {
+    videoRefs.current.forEach((video, i) => {
+      if (!video) return;
+      if (i === selectedIndex) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, [selectedIndex]);
 
   // Auto-scroll
   useEffect(() => {
@@ -194,11 +207,13 @@ export default function Services() {
                     >
                       {service.image.endsWith('.mp4') ? (
                         <video
-                          src={service.image}
+                          ref={(el) => { videoRefs.current[index] = el; }}
+                          src={`${service.image}#t=0.001`}
                           autoPlay
                           muted
                           loop
                           playsInline
+                          preload="metadata"
                           className="absolute inset-0 w-full h-full object-cover"
                         />
                       ) : (
