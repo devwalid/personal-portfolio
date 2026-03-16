@@ -79,6 +79,7 @@ function VideoCard({ src }: { src: string }) {
   useEffect(() => {
     const video = ref.current;
     if (!video || !isVisible) return;
+    video.load();
     video.play().catch(() => {});
   }, [isVisible]);
 

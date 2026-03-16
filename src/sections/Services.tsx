@@ -128,6 +128,7 @@ export default function Services() {
     videoRefs.current.forEach((video, i) => {
       if (!video) return;
       if (i === selectedIndex) {
+        if (video.readyState === 0) video.load();
         video.play().catch(() => {});
       } else {
         video.pause();

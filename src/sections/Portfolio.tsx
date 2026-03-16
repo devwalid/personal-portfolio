@@ -45,6 +45,7 @@ function CategoryCard({ category }: { category: (typeof categories)[number] }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          if (video.readyState === 0) video.load();
           video.play().catch(() => {});
         } else {
           video.pause();
