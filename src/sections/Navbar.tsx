@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const navLinks = [
   { name: 'ABOUT', href: '#about' },
@@ -11,6 +12,10 @@ const navLinks = [
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+  const getHref = (hash: string) => (isHome ? hash : `/${hash}`);
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
@@ -27,7 +32,7 @@ export default function Navbar() {
               {navLinks.slice(0, 2).map((link) => (
                 <a
                   key={link.name}
-                  href={link.href}
+                  href={getHref(link.href)}
                   className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-foreground/5 rounded-full transition-colors tracking-wide"
                 >
                   {link.name}
@@ -36,25 +41,26 @@ export default function Navbar() {
             </div>
 
             {/* Logo */}
-            <motion.a
-              href="#"
+            <motion.div
               className="flex-shrink-0 px-3 py-1"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              <img
-                src="/images/logo-text.svg"
-                alt="Walid El Omari"
-                className="h-7"
-              />
-            </motion.a>
+              <Link to="/">
+                <img
+                  src="/images/logo-text.svg"
+                  alt="Walid El Omari"
+                  className="h-7"
+                />
+              </Link>
+            </motion.div>
 
             {/* Desktop Navigation Links (right) */}
             <div className="hidden md:flex items-center">
               {navLinks.slice(2).map((link) => (
                 <a
                   key={link.name}
-                  href={link.href}
+                  href={getHref(link.href)}
                   className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-foreground/5 rounded-full transition-colors tracking-wide"
                 >
                   {link.name}
@@ -88,7 +94,7 @@ export default function Navbar() {
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.name}
-                    href={link.href}
+                    href={getHref(link.href)}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}

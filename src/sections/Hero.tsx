@@ -20,8 +20,8 @@ const rightVideos = [
   '/Videos/DTC.mp4',
   '/Videos/GCC.mp4',
   '/Videos/IG-reels.mp4',
-  '/Videos/motion-graphic.mp4',
-  '/Videos/long-to-short-form.mp4',
+  '/Videos/ss.mp4',
+  '/Videos/eureka.mp4',
 ];
 
 const containerVariants = {
@@ -47,9 +47,18 @@ const itemVariants = {
   },
 };
 
+function getPreviewSrc(src: string) {
+  const name = src.replace('/Videos/', '').replace('.mp4', '');
+  return {
+    webm: `/Videos/previews/${name}.webm`,
+    poster: `/Videos/posters/${name}.webp`,
+  };
+}
+
 function VideoCard({ src }: { src: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const { webm, poster } = getPreviewSrc(src);
 
   useEffect(() => {
     const video = ref.current;
@@ -77,14 +86,17 @@ function VideoCard({ src }: { src: string }) {
     <div className="relative w-[180px] md:w-[240px] lg:w-[280px] aspect-[9/16] rounded-2xl overflow-hidden flex-shrink-0 bg-white/5">
       <video
         ref={ref}
-        src={isVisible ? src : undefined}
+        poster={poster}
         autoPlay
         muted
         loop
         playsInline
         preload="none"
         className="w-full h-full object-cover"
-      />
+      >
+        {isVisible && <source src={webm} type="video/webm" />}
+        {isVisible && <source src={src} type="video/mp4" />}
+      </video>
       <div className="absolute inset-0 bg-black/30" />
     </div>
   );

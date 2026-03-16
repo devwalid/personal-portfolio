@@ -194,12 +194,14 @@ export default function About() {
               className="text-lg text-muted-foreground leading-relaxed"
             >
               I'm <span className="text-foreground font-medium">Walid El Omari</span>, a
-              freelance video editor with over 4 years of hand-on experience. I specialize in{' '}
+              freelance video editor with over 4 years of hands-on experience. I specialize in{' '}
               <span className="text-foreground font-medium">short-form content</span>,{' '}
               <span className="text-foreground font-medium">UGC editing</span>, and{' '}
               <span className="text-foreground font-medium">ad videos</span> for brands
-              and individuals that want to stand out on social media. From Instagram Reels to ad videos,
-              I turn raw footage into scroll-stopping content.
+              and individuals that want to stand out on social media. Working with agencies and brands,
+              I've helped create content that has generated{' '}
+              <span className="text-foreground font-medium">millions of views</span> across platforms.
+              From Instagram Reels to YouTube Shorts, I turn raw footage into scroll-stopping content.
             </motion.p>
 
             <motion.div variants={textVariants}>

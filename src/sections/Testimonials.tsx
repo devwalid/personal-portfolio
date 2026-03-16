@@ -28,7 +28,7 @@ const testimonials = [
   },
   {
     location: 'United States',
-    content: 'Thank you so much you are the best',
+    content: 'I highly recommend him for video editing, Walid did an amazing job with my content',
     author: 'Elisa Chiaradia',
     image: '/images/elisa.jpg',
   },

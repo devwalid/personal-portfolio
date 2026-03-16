@@ -205,18 +205,24 @@ export default function Services() {
                           : 'shadow-lg'
                       )}
                     >
-                      {service.image.endsWith('.mp4') ? (
-                        <video
-                          ref={(el) => { videoRefs.current[index] = el; }}
-                          src={`${service.image}#t=0.001`}
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          preload="metadata"
-                          className="absolute inset-0 w-full h-full object-cover"
-                        />
-                      ) : (
+                      {service.image.endsWith('.mp4') ? (() => {
+                        const name = service.image.replace('/Videos/', '').replace('.mp4', '');
+                        return (
+                          <video
+                            ref={(el) => { videoRefs.current[index] = el; }}
+                            poster={`/Videos/posters/${name}.webp`}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            preload="none"
+                            className="absolute inset-0 w-full h-full object-cover"
+                          >
+                            <source src={`/Videos/previews/${name}.webm`} type="video/webm" />
+                            <source src={service.image} type="video/mp4" />
+                          </video>
+                        );
+                      })() : (
                         <img
                           src={service.image}
                           alt={service.title}
