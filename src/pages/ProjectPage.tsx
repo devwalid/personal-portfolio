@@ -1,8 +1,9 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import { categories, type Project } from '@/data/projects';
+import { getCloudinaryUrl } from '@/lib/cloudinary';
 import Navbar from '@/sections/Navbar';
 import Footer from '@/sections/Footer';
 
@@ -91,7 +92,7 @@ function VideoCard({ project }: { project: Project }) {
       <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-white/5">
         <video
           ref={videoRef}
-          src={`${project.video}#t=0.001`}
+          src={`${getCloudinaryUrl(project.video!)}#t=0.001`}
           muted
           loop
           playsInline
@@ -159,9 +160,18 @@ export default function ProjectPage() {
   const { slug } = useParams<{ slug: string }>();
   const category = categories.find((c) => c.slug === slug);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
+
+  const handleBack = () => {
+    navigate('/');
+    setTimeout(() => {
+      document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
 
   if (!category) {
     return (
@@ -194,12 +204,12 @@ export default function ProjectPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <Link
-            to="/#portfolio"
+          <button
+            onClick={handleBack}
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-12"
           >
             <ArrowLeft className="w-4 h-4" /> Back to portfolio
-          </Link>
+          </button>
         </motion.div>
 
         {/* Header */}

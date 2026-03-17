@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
+import { getCloudinaryUrl } from '@/lib/cloudinary';
 
 const leftVideos = [
   '/Videos/1.mp4',
@@ -96,7 +97,7 @@ function VideoCard({ src }: { src: string }) {
         className="w-full h-full object-cover"
       >
         {isVisible && <source src={webm} type="video/webm" />}
-        {isVisible && <source src={src} type="video/mp4" />}
+        {isVisible && <source src={getCloudinaryUrl(src)} type="video/mp4" />}
       </video>
       <div className="absolute inset-0 bg-black/30" />
     </div>

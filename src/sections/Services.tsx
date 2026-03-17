@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
+import { getCloudinaryUrl } from '@/lib/cloudinary';
 
 const services = [
   { title: 'UGC Videos', subtitle: 'User-Generated Content', image: '/Videos/UGC.mp4' },
@@ -220,7 +221,7 @@ export default function Services() {
                             className="absolute inset-0 w-full h-full object-cover"
                           >
                             <source src={`/Videos/previews/${name}.webm`} type="video/webm" />
-                            <source src={service.image} type="video/mp4" />
+                            <source src={getCloudinaryUrl(service.image)} type="video/mp4" />
                           </video>
                         );
                       })() : (

@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { categories } from '@/data/projects';
+import { getCloudinaryUrl } from '@/lib/cloudinary';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -76,7 +77,7 @@ function CategoryCard({ category }: { category: (typeof categories)[number] }) {
           className="absolute inset-0 w-full h-full object-cover"
           >
             <source src={webm} type="video/webm" />
-            <source src={category.thumbnail} type="video/mp4" />
+            <source src={getCloudinaryUrl(category.thumbnail)} type="video/mp4" />
           </video>
 
           {/* Gradient overlay */}
