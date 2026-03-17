@@ -1,6 +1,6 @@
 import Navbar from '@/sections/Navbar';
 import Hero from '@/sections/Hero';
-// import Brands from '@/sections/Brands';
+import Brands from '@/sections/Brands';
 import About from '@/sections/About';
 import Services from '@/sections/Services';
 import Process from '@/sections/Process';
@@ -17,7 +17,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <About />
-        {/* <Brands /> */}
+        <Brands />
         <Services />
         <Process />
         <Portfolio />

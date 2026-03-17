@@ -104,7 +104,7 @@
 }
 
 /* Logo Ticker Animation */
-@keyframes ticker {
+@keyframes ticker-left {
   0% {
     transform: translateX(0);
   }
@@ -113,8 +113,25 @@
   }
 }
 
+@keyframes ticker-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .animate-ticker {
-  animation: ticker 30s linear infinite;
+  animation: ticker-left 15s linear infinite;
+}
+
+.animate-ticker-left {
+  animation: ticker-left 30s linear infinite;
+}
+
+.animate-ticker-right {
+  animation: ticker-right 30s linear infinite;
 }
 
 /* Rotating border glow */
