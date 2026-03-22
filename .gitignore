@@ -2,6 +2,8 @@ node_modules
 dist
 .DS_Store
 .vercel
+.env
+.env.local
 
 # Video files hosted on Cloudinary
 public/Videos/*.mp4

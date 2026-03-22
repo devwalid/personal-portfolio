@@ -40,6 +40,18 @@ export const categories: Category[] = [
         youtubeUrl: 'https://www.youtube.com/shorts/gIgIBEAbk48',
         youtubeEmbed: 'https://www.youtube.com/embed/gIgIBEAbk48',
       },
+      {
+        title: 'Burger Factory — Eid',
+        brand: 'BURGER FACTORY',
+        youtubeUrl: 'https://www.youtube.com/shorts/erXs7bupgXQ',
+        youtubeEmbed: 'https://www.youtube.com/embed/erXs7bupgXQ',
+      },
+      {
+        title: 'Pita Land — Eid',
+        brand: 'PITA LAND',
+        youtubeUrl: 'https://www.youtube.com/shorts/5oHHudnFzBM',
+        youtubeEmbed: 'https://www.youtube.com/embed/5oHHudnFzBM',
+      },
     ],
   },
   {

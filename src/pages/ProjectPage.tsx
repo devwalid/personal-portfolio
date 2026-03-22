@@ -1,9 +1,10 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Play, Pause, Volume2, VolumeX, Eye, ThumbsUp } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import { categories, type Project } from '@/data/projects';
 import { getCloudinaryUrl } from '@/lib/cloudinary';
+import { useYoutubeStats } from '@/hooks/use-youtube-stats';
 import Navbar from '@/sections/Navbar';
 import Footer from '@/sections/Footer';
 
@@ -50,6 +51,8 @@ function VideoCard({ project }: { project: Project }) {
     setIsMuted(video.muted);
   };
 
+  const ytStats = useYoutubeStats(project.youtubeUrl);
+
   // YouTube embed
   if (project.youtubeEmbed) {
     return (
@@ -68,8 +71,15 @@ function VideoCard({ project }: { project: Project }) {
             {project.brand}
           </p>
           <h3 className="text-white font-semibold">{project.title}</h3>
-          {project.stats && (
-            <p className="text-accent-red text-sm font-medium">{project.stats}</p>
+          {ytStats && (
+            <div className="flex items-center gap-3 text-sm text-white/60">
+              <span className="inline-flex items-center gap-1">
+                <Eye className="w-3.5 h-3.5" /> {ytStats.views}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <ThumbsUp className="w-3.5 h-3.5" /> {ytStats.likes}
+              </span>
+            </div>
           )}
           {project.youtubeUrl && (
             <a
