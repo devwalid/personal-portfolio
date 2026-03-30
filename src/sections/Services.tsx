@@ -5,12 +5,11 @@ import { cn } from '@/lib/utils';
 import { getCloudinaryUrl } from '@/lib/cloudinary';
 
 const services = [
-  { title: 'UGC Videos', subtitle: 'User-Generated Content', image: '/Videos/UGC.mp4' },
-  { title: 'Motion Graphic', subtitle: 'Minimal Style of Motion Ad Creatives', image: '/Videos/motion-graphic.mp4' },
-  { title: 'COD Videos', subtitle: 'Ad Creatives for COD Sellers', image: '/Videos/GCC.mp4' },
-  { title: 'DTC', subtitle: 'Direct To Costumer Ad Creatives', image: '/Videos/DTC.mp4' },
+  { title: 'Talking-Head Editing', subtitle: 'Engaging Speaker-Style Video Edits', image: '/Videos/2.mp4' },
+  { title: 'Ad Motion Graphic', subtitle: 'Minimal Style of Motion Ad Creatives', image: '/Videos/motion-graphic.mp4' },
+  { title: 'DTC ads', subtitle: 'Direct To Costumer Ad Creatives', image: '/Videos/DTC.mp4' },
   { title: 'AI UGC', subtitle: 'AI-Powered UGC Editing', image: '/Videos/coming-soon.mp4' },
-  { title: 'IG Reels', subtitle: 'Instagram Reels', image: '/Videos/IG-reels.mp4' },
+  { title: 'Social Shorts', subtitle: 'Scroll-Stopping Short-Form Content', image: '/Videos/bf.mp4' },
   { title: 'Long to Short-Form', subtitle: 'Turning Long Youtube Videos to Short-Form Content', image: '/Videos/long-to-short-form.mp4' },
   { title: 'Static Images', subtitle: 'Static Ad Creatives', image: '/images/static-images.png' },
 ];
