@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import CustomCursor from './components/CustomCursor';
 import HomePage from './pages/HomePage';
 import ProjectPage from './pages/ProjectPage';
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/projects/:slug" element={<ProjectPage />} />
       </Routes>
+      <Analytics />
     </div>
   );
 }
