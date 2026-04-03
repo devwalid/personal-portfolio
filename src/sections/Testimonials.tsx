@@ -48,19 +48,25 @@ const testimonials = [
 
 // Split testimonials into columns
 const col1 = [testimonials[0], testimonials[4]];
-const col2 = [testimonials[1], testimonials[2]];
+const col2 = [testimonials[1], testimonials[2], testimonials[6]];
 const col3 = [testimonials[5], testimonials[3]];
 
 function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] }) {
   return (
     <div className="p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border hover:border-foreground/20 transition-colors">
       <div className="flex items-center gap-3 mb-4">
-        <img
-          src={testimonial.image}
-          alt={testimonial.author}
-          loading="lazy"
-          className="w-10 h-10 rounded-full object-cover"
-        />
+        {testimonial.image ? (
+          <img
+            src={testimonial.image}
+            alt={testimonial.author}
+            loading="lazy"
+            className="w-10 h-10 rounded-full object-cover"
+          />
+        ) : (
+          <div className="w-10 h-10 rounded-full bg-accent-blue/20 flex items-center justify-center text-accent-blue font-bold text-sm">
+            {testimonial.author.split(' ').map(n => n[0]).join('')}
+          </div>
+        )}
         <div>
           <p className="text-foreground font-semibold text-sm">{testimonial.author}</p>
         </div>
