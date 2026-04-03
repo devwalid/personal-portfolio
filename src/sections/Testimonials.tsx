@@ -38,6 +38,12 @@ const testimonials = [
     author: 'Yousef Benhamida',
     image: '/images/yousef.jpeg',
   },
+  {
+    location: 'United States',
+    content: 'Walid did a fantastic job. He took all my feedback well and make the appropriate adjustments. He was a pleasure to work with and cannot recommend him enough.',
+    author: 'Kirby Gee',
+    image: '',
+  },
 ];
 
 // Split testimonials into columns

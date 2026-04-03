@@ -77,11 +77,6 @@ export const categories: Category[] = [
       },
       {
         title: 'Ad Creative',
-        brand: 'Euereka Surveys',
-        video: '/Videos/eureka.mp4',
-      },
-      {
-        title: 'Ad Creative',
         brand: 'Mothers Earth',
         video: '/Videos/10.mp4',
       },
