@@ -6,7 +6,6 @@ import Process from '@/sections/Process';
 import Portfolio from '@/sections/Portfolio';
 import Testimonials from '@/sections/Testimonials';
 import Contact from '@/sections/Contact';
-import CtaBanner from '@/sections/CtaBanner';
 import Footer from '@/sections/Footer';
 
 export default function HomePage() {
@@ -21,7 +20,6 @@ export default function HomePage() {
         <Portfolio />
         <Testimonials />
         <Contact />
-        <CtaBanner />
       </main>
       <Footer />
     </>

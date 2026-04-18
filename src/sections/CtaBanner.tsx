@@ -22,9 +22,20 @@ export default function CtaBanner() {
               <br />
               that actually converts?
             </h2>
-            <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">
+            <p className="text-muted-foreground text-lg mb-4 max-w-xl mx-auto">
               Let's turn your raw footage into scroll-stopping videos that grow your brand.
             </p>
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-8 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border bg-card/50 backdrop-blur-sm">
+                <span className="text-foreground font-semibold">From $25</span>/video
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border bg-card/50 backdrop-blur-sm">
+                Monthly packages available
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border bg-card/50 backdrop-blur-sm">
+                Under 12h reply
+              </span>
+            </div>
             <motion.a
               href="#contact"
               whileHover={{ scale: 1.02 }}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Instagram } from 'lucide-react';
+import { Send, Instagram, Mail } from 'lucide-react';
 
 const socials = [
   { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/walid_el_omari_/' },
@@ -68,121 +68,142 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative py-24 lg:py-32">
-      <div className="max-w-2xl mx-auto px-6 lg:px-8">
-        {/* Social Icons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center justify-center gap-4 mb-10"
-        >
-          {socials.map((social) => (
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left column — CTA content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
+          >
+            {/* Social Icons */}
+            <div className="flex items-center gap-4">
+              {socials.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+                >
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
+
+            {/* CTA Heading */}
+            <div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
+                Ready to make content
+                <br />
+                that actually converts?
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                Let's turn your raw footage into scroll-stopping videos that grow your brand.
+              </p>
+            </div>
+
+            {/* Pricing pills */}
+            <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border bg-card/50 backdrop-blur-sm">
+                <span className="text-foreground font-semibold">From $25</span>/video
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border bg-card/50 backdrop-blur-sm">
+                Monthly packages available
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border bg-card/50 backdrop-blur-sm">
+                Under 12h reply
+              </span>
+            </div>
+
+            {/* Direct contact info */}
             <a
-              key={social.name}
-              href={social.href}
-              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+              href="mailto:walid.el.omari22@gmail.com"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              <social.icon className="w-5 h-5" />
+              <Mail className="w-4 h-4" />
+              walid.el.omari22@gmail.com
             </a>
-          ))}
-        </motion.div>
+          </motion.div>
 
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
-            Let's work together
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Drop me a message or reach out directly
-            <br className="hidden sm:block" />
-            — I'll get back within a day.
-          </p>
-        </motion.div>
-
-        {/* Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          {isSubmitted ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-8 text-center"
-            >
-              <div className="w-16 h-16 bg-accent-red rounded-full flex items-center justify-center mx-auto mb-4">
-                <Send className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-2">
-                Message Sent!
-              </h3>
-              <p className="text-muted-foreground">
-                Thanks for reaching out. I'll get back to you soon!
-              </p>
-            </motion.div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder="Full Name"
-                className="w-full px-5 py-4 bg-transparent border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground/30 transition-colors"
-              />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="Enter your email"
-                className="w-full px-5 py-4 bg-transparent border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground/30 transition-colors"
-              />
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={5}
-                placeholder="Write a message here..."
-                className="w-full px-5 py-4 bg-transparent border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground/30 transition-colors resize-vertical"
-              />
-              {error && (
-                <p className="text-red-500 text-sm text-center">{error}</p>
-              )}
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-                className="w-full py-4 bg-foreground text-background font-bold text-lg rounded-xl hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          {/* Right column — Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
+            {isSubmitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-8 text-center"
               >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-background/30 border-t-background rounded-full animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  'Submit'
+                <div className="w-16 h-16 bg-accent-red rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Send className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-2">
+                  Message Sent!
+                </h3>
+                <p className="text-muted-foreground">
+                  Thanks for reaching out. I'll get back to you soon!
+                </p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Full Name"
+                  className="w-full px-5 py-4 bg-transparent border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground/30 transition-colors"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter your email"
+                  className="w-full px-5 py-4 bg-transparent border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground/30 transition-colors"
+                />
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={5}
+                  placeholder="Write a message here..."
+                  className="w-full px-5 py-4 bg-transparent border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground/30 transition-colors resize-vertical"
+                />
+                {error && (
+                  <p className="text-red-500 text-sm text-center">{error}</p>
                 )}
-              </motion.button>
-              <p className="text-center text-muted-foreground text-sm">
-                Your info stays private.
-              </p>
-            </form>
-          )}
-        </motion.div>
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  className="w-full py-4 bg-foreground text-background font-bold text-lg rounded-xl hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-background/30 border-t-background rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    'Submit'
+                  )}
+                </motion.button>
+                <p className="text-center text-muted-foreground text-sm">
+                  Your info stays private.
+                </p>
+              </form>
+            )}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
