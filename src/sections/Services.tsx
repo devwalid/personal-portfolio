@@ -11,7 +11,6 @@ const services = [
   { title: 'AI UGC', subtitle: 'AI-Powered UGC Editing', image: '/Videos/coming-soon.mp4' },
   { title: 'Social Shorts', subtitle: 'Scroll-Stopping Short-Form Content', image: '/Videos/bf.mp4' },
   { title: 'Long to Short-Form', subtitle: 'Turning Long Youtube Videos to Short-Form Content', image: '/Videos/long-to-short-form.mp4' },
-  { title: 'Static Images', subtitle: 'Static Ad Creatives', image: '/images/static-images.png' },
 ];
 
 const SLIDE_COUNT = services.length;
@@ -85,17 +84,20 @@ export default function Services() {
       const absOffset = Math.abs(offset);
       const direction = Math.sign(offset);
 
-      // Orbital transforms — cards travel along a curved arc
-      // Subtle rotateY that comes from the curve, not individual spinning
-      const rotateY = direction * absOffset * 25;
-      // Cards recede in Z as they move off-center (depth on the arc)
-      const translateZ = -(absOffset * absOffset) * 30;
-      // Scale down gently
-      const scale = Math.max(1 - absOffset * 0.08, 0.75);
-      // Fade cards beyond the visible 5
-      const opacity = absOffset > 2.8 ? 0 : Math.max(1 - absOffset * 0.15, 0.3);
+      // Inverse panorama: center deepest/smallest, sides closer/bigger
+      const cappedOffset = Math.min(absOffset, 3);
+      // Outer cards rotate inward (toward center camera)
+      const rotateY = direction * cappedOffset * 7;
+      // Cylinder X compression (pull edges inward) — close gap left by smaller center
+      const translateX = -direction * cappedOffset * 49;
+      // Inverted Z: center receded, sides forward
+      const translateZ = -Math.pow(3 - cappedOffset, 1.5) * 85;
+      // Inverted scale: center smallest, sides bigger
+      const scale = Math.min(0.82 + absOffset * 0.09, 1.05);
+      // Edge slivers fade past offset 2.8
+      const opacity = absOffset > 2.8 ? 0 : Math.max(1 - absOffset * 0.08, 0.35);
 
-      slide.style.transform = `rotateY(${rotateY}deg) translateZ(${translateZ}px) scale(${scale})`;
+      slide.style.transform = `translateX(${translateX}px) rotateY(${rotateY}deg) translateZ(${translateZ}px) scale(${scale})`;
       slide.style.opacity = `${opacity}`;
       slide.style.zIndex = `${100 - Math.round(absOffset * 10)}`;
     });
@@ -141,7 +143,7 @@ export default function Services() {
     if (!emblaApi || isHovered) return;
     const interval = setInterval(() => {
       emblaApi.scrollNext();
-    }, 3500);
+    }, 5000);
     return () => clearInterval(interval);
   }, [emblaApi, isHovered]);
 
@@ -177,9 +179,9 @@ export default function Services() {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Edge fade gradients */}
-        <div className="absolute top-0 bottom-0 left-0 w-24 sm:w-32 lg:w-48 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
-        <div className="absolute top-0 bottom-0 right-0 w-24 sm:w-32 lg:w-48 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
+        {/* Edge gradients with Gaussian blur — softens sliver entry */}
+        <div className="absolute top-0 bottom-0 left-0 w-16 lg:w-24 bg-gradient-to-r from-background via-background/70 to-transparent backdrop-blur-md z-20 pointer-events-none" style={{ WebkitMaskImage: 'linear-gradient(to right, black, transparent)', maskImage: 'linear-gradient(to right, black, transparent)' }} />
+        <div className="absolute top-0 bottom-0 right-0 w-16 lg:w-24 bg-gradient-to-l from-background via-background/70 to-transparent backdrop-blur-md z-20 pointer-events-none" style={{ WebkitMaskImage: 'linear-gradient(to left, black, transparent)', maskImage: 'linear-gradient(to left, black, transparent)' }} />
 
         <div className="carousel-3d-viewport" ref={emblaRef}>
           <div className="carousel-3d-container flex items-start">
@@ -189,7 +191,7 @@ export default function Services() {
               return (
                 <div
                   key={service.title}
-                  className="flex-[0_0_65vw] sm:flex-[0_0_40vw] lg:flex-[0_0_28vw] min-w-0 px-2 sm:px-3 cursor-pointer"
+                  className="flex-[0_0_70vw] sm:flex-[0_0_44vw] lg:flex-[0_0_30vw] min-w-0 px-2 sm:px-3 lg:px-3 cursor-pointer"
                   onClick={() => handleCardClick(index)}
                 >
                   <div
@@ -245,7 +247,7 @@ export default function Services() {
                     <div
                       className={cn(
                         'mt-5 text-center transition-opacity duration-500',
-                        isActive ? 'opacity-100' : 'opacity-0'
+                        isActive ? 'opacity-100' : 'opacity-30'
                       )}
                     >
                       <h3 className="text-foreground font-bold text-xl md:text-2xl tracking-tight">

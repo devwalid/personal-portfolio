@@ -181,8 +181,8 @@
 
 /* 3D Carousel */
 .carousel-3d-perspective {
-  perspective: 1800px;
-  perspective-origin: 50% 45%;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
 }
 
 .carousel-3d-viewport {
