@@ -23,7 +23,7 @@ const steps = [
   {
     number: '04',
     title: 'Deliver',
-    description: 'Final files exported in all formats you need — ready to post and start performing.',
+    description: 'Final files exported in all formats you need, ready to post and start performing.',
     icon: Send,
   },
 ];

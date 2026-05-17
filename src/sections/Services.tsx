@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
 import { getCloudinaryUrl } from '@/lib/cloudinary';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const services = [
   { title: 'Talking-Head Editing', subtitle: 'Engaging Speaker-Style Video Edits', image: '/Videos/2.mp4' },
@@ -51,6 +52,7 @@ export default function Services() {
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
   const slidesRef = useRef<(HTMLDivElement | null)[]>([]);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -84,24 +86,35 @@ export default function Services() {
       const absOffset = Math.abs(offset);
       const direction = Math.sign(offset);
 
-      // Inverse panorama: center deepest/smallest, sides closer/bigger
       const cappedOffset = Math.min(absOffset, 3);
-      // Outer cards rotate inward (toward center camera)
-      const rotateY = direction * cappedOffset * 7;
-      // Cylinder X compression (pull edges inward) — close gap left by smaller center
-      const translateX = -direction * cappedOffset * 49;
-      // Inverted Z: center receded, sides forward
-      const translateZ = -Math.pow(3 - cappedOffset, 1.5) * 85;
-      // Inverted scale: center smallest, sides bigger
-      const scale = Math.min(0.82 + absOffset * 0.09, 1.05);
-      // Edge slivers fade past offset 2.8
-      const opacity = absOffset > 2.8 ? 0 : Math.max(1 - absOffset * 0.08, 0.35);
+
+      let rotateY: number;
+      let translateX: number;
+      let translateZ: number;
+      let scale: number;
+      let opacity: number;
+
+      if (isMobile) {
+        // Mobile: center card dominant; sides small peek, tucked back, no overlap
+        rotateY = direction * cappedOffset * 6;
+        translateX = -direction * cappedOffset * 24;
+        translateZ = -cappedOffset * 110;
+        scale = Math.max(1.08 - absOffset * 0.32, 0.42);
+        opacity = absOffset > 2.5 ? 0 : Math.max(1 - absOffset * 0.32, 0.25);
+      } else {
+        // Desktop inverse panorama: center deepest/smallest, sides closer/bigger
+        rotateY = direction * cappedOffset * 7;
+        translateX = -direction * cappedOffset * 49;
+        translateZ = -Math.pow(3 - cappedOffset, 1.5) * 85;
+        scale = Math.min(0.82 + absOffset * 0.09, 1.05);
+        opacity = absOffset > 2.8 ? 0 : Math.max(1 - absOffset * 0.08, 0.35);
+      }
 
       slide.style.transform = `translateX(${translateX}px) rotateY(${rotateY}deg) translateZ(${translateZ}px) scale(${scale})`;
       slide.style.opacity = `${opacity}`;
       slide.style.zIndex = `${100 - Math.round(absOffset * 10)}`;
     });
-  }, [emblaApi]);
+  }, [emblaApi, isMobile]);
 
   useEffect(() => {
     if (!emblaApi) return;

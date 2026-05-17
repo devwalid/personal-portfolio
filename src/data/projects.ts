@@ -19,35 +19,35 @@ export const categories: Category[] = [
   {
     slug: 'social-shorts',
     title: 'Social Shorts',
-    description: 'Viral short-form content for YouTube Shorts, Instagram Reels, and TikTok — driving millions of views and massive engagement.',
+    description: 'Viral short-form content for YouTube Shorts, Instagram Reels, and TikTok, driving millions of views and massive engagement.',
     thumbnail: '/Videos/bf.mp4',
     projects: [
       {
-        title: 'Burger Factory — First Ramadan',
+        title: 'Burger Factory, First Ramadan',
         brand: 'BURGER FACTORY',
         youtubeUrl: 'https://www.youtube.com/shorts/Ao_VGRzQVxk',
         youtubeEmbed: 'https://www.youtube.com/embed/Ao_VGRzQVxk',
       },
       {
-        title: 'Burger Factory — First Iftar',
+        title: 'Burger Factory, First Iftar',
         brand: 'BURGER FACTORY',
         youtubeUrl: 'https://www.youtube.com/shorts/K07kACN2Q40',
         youtubeEmbed: 'https://www.youtube.com/embed/K07kACN2Q40',
       },
       {
-        title: 'Burger Factory — Customer has a question',
+        title: 'Burger Factory, Customer has a question',
         brand: 'BURGER FACTORY',
         youtubeUrl: 'https://www.youtube.com/shorts/gIgIBEAbk48',
         youtubeEmbed: 'https://www.youtube.com/embed/gIgIBEAbk48',
       },
       {
-        title: 'Burger Factory — Eid',
+        title: 'Burger Factory, Eid',
         brand: 'BURGER FACTORY',
         youtubeUrl: 'https://www.youtube.com/shorts/erXs7bupgXQ',
         youtubeEmbed: 'https://www.youtube.com/embed/erXs7bupgXQ',
       },
       {
-        title: 'Pita Land — Eid',
+        title: 'Pita Land, Eid',
         brand: 'PITA LAND',
         youtubeUrl: 'https://www.youtube.com/shorts/5oHHudnFzBM',
         youtubeEmbed: 'https://www.youtube.com/embed/5oHHudnFzBM',

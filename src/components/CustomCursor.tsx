@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { motion, useMotionValue, useVelocity, useTransform } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
+import { Hand, Pointer } from 'lucide-react';
 
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
@@ -8,12 +9,6 @@ export default function CustomCursor() {
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-
-  const velocityX = useVelocity(mouseX);
-  const velocityY = useVelocity(mouseY);
-
-  const scaleX = useTransform(velocityX, [-2000, 0, 2000], [0.6, 1, 1.4]);
-  const scaleY = useTransform(velocityY, [-2000, 0, 2000], [1.4, 1, 0.6]);
 
   useEffect(() => {
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
@@ -51,21 +46,25 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full bg-foreground mix-blend-difference"
+      className="fixed top-0 left-0 pointer-events-none z-[9999] text-foreground drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"
       style={{
         x: mouseX,
         y: mouseY,
-        scaleX,
-        scaleY,
-        translateX: '-50%',
-        translateY: '-50%',
+        translateX: '-25%',
+        translateY: '-10%',
       }}
       animate={{
-        width: isHovering ? 56 : 16,
-        height: isHovering ? 56 : 16,
         opacity: isVisible ? 1 : 0,
+        scale: isHovering ? 1.2 : 1,
+        rotate: isHovering ? -15 : 0,
       }}
       transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-    />
+    >
+      {isHovering ? (
+        <Pointer className="w-7 h-7 fill-foreground/20" />
+      ) : (
+        <Hand className="w-7 h-7 fill-foreground/20" />
+      )}
+    </motion.div>
   );
 }

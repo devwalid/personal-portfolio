@@ -1,4 +1,5 @@
 import Navbar from '@/sections/Navbar';
+import PlayIconsBackground from '@/components/PlayIconsBackground';
 import Hero from '@/sections/Hero';
 import About from '@/sections/About';
 import Services from '@/sections/Services';
@@ -12,6 +13,7 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
+      <PlayIconsBackground />
       <main>
         <Hero />
         <About />

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import { getCloudinaryUrl } from '@/lib/cloudinary';
@@ -47,6 +47,43 @@ const itemVariants = {
     },
   },
 };
+
+const rotatingPhrases = ['Stop the Scroll', 'Get Attention', 'Grow Fast'];
+
+function RotatingHeadline() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(
+      () => setIndex((i) => (i + 1) % rotatingPhrases.length),
+      2600
+    );
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <span className="relative inline-flex overflow-hidden pb-4 align-baseline">
+      {/* Invisible spacer reserves width for the longest phrase */}
+      <span className="invisible whitespace-nowrap" aria-hidden>
+        Stop the Scroll
+      </span>
+      <AnimatePresence mode="popLayout">
+        <motion.span
+          key={index}
+          className="absolute left-0 top-0 flex flex-col items-start"
+          initial={{ y: '120%' }}
+          animate={{ y: 0 }}
+          exit={{ y: '-120%' }}
+          transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+        >
+          <span className="whitespace-nowrap">{rotatingPhrases[index]}</span>
+          {/* Underline highlight — tracks current phrase width */}
+          <span className="mt-0 h-1.5 w-full bg-accent-red/60 sm:mt-1 sm:h-3" />
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
 
 function getPreviewSrc(src: string) {
   const name = src.replace('/Videos/', '').replace('.mp4', '');
@@ -106,7 +143,7 @@ function VideoCard({ src }: { src: string }) {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-background">
       {/* Ambient glow — dense warm light at top, matching reference */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none"
@@ -142,10 +179,10 @@ export default function Hero() {
 
       {/* Left video column — scrolls up */}
       <motion.div
-        initial={{ opacity: 0, x: -150 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ x: -150 }}
+        animate={{ x: 0 }}
         transition={{ duration: 0.4, delay: 0.1, ease: 'easeOut' }}
-        className="absolute -left-[90px] md:-left-[60px] lg:-left-[30px] top-0 bottom-0 z-[1] overflow-hidden opacity-10 md:opacity-100"
+        className="absolute -left-[90px] md:-left-[60px] lg:-left-[30px] top-0 bottom-0 z-[1] overflow-hidden opacity-[0.28] md:opacity-100"
       >
         {/* Top fade */}
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent z-20 pointer-events-none" />
@@ -160,10 +197,10 @@ export default function Hero() {
 
       {/* Right video column — scrolls down */}
       <motion.div
-        initial={{ opacity: 0, x: 150 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ x: 150 }}
+        animate={{ x: 0 }}
         transition={{ duration: 0.4, delay: 0.1, ease: 'easeOut' }}
-        className="absolute -right-[90px] md:-right-[60px] lg:-right-[30px] top-0 bottom-0 z-[1] overflow-hidden opacity-10 md:opacity-100"
+        className="absolute -right-[90px] md:-right-[60px] lg:-right-[30px] top-0 bottom-0 z-[1] overflow-hidden opacity-[0.28] md:opacity-100"
       >
         {/* Top fade */}
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent z-20 pointer-events-none" />
@@ -187,7 +224,7 @@ export default function Hero() {
           {/* Intro tag */}
           <motion.div variants={itemVariants}>
             <span className="inline-block whitespace-nowrap px-5 py-2 rounded-full bg-accent-red text-white text-sm font-medium tracking-wide shadow-[0_0_20px_rgba(225,29,72,0.3)]">
-              Freelance Video Editor — Morocco
+              Freelance Video Editor, Morocco
             </span>
           </motion.div>
 
@@ -199,21 +236,13 @@ export default function Hero() {
             Short-Form Videos{' '}
             <br className="hidden sm:block" />
             That{' '}
-            <span className="relative inline-block">
-              Stop the Scroll
-              <motion.span
-                className="absolute -bottom-2 left-0 w-full h-3 bg-accent-red/60 -z-10"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-              />
-            </span>
+            <RotatingHeadline />
           </motion.h1>
 
           {/* Subheadline */}
           <motion.div variants={itemVariants} className="flex justify-center">
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl leading-relaxed px-6 py-4 rounded-2xl bg-background/80 md:bg-foreground/5 md:backdrop-blur-md border border-foreground/10">
-              I'm <span className="text-foreground font-medium">Walid El Omari</span> — I edit
+              I'm <span className="text-foreground font-medium">Walid El Omari</span>, I edit
               {' '}<span className="text-foreground font-medium">UGC</span>,
               {' '}<span className="text-foreground font-medium">Instagram Reels</span>, and
               {' '}<span className="text-foreground font-medium">Ad Videos</span> that

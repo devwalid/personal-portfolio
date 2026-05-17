@@ -7,6 +7,7 @@ import { getCloudinaryUrl } from '@/lib/cloudinary';
 import { useYoutubeStats } from '@/hooks/use-youtube-stats';
 import Navbar from '@/sections/Navbar';
 import Footer from '@/sections/Footer';
+import PlayIconsBackground from '@/components/PlayIconsBackground';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -206,6 +207,7 @@ export default function ProjectPage() {
   return (
     <>
       <Navbar />
+      <PlayIconsBackground />
       <div className="min-h-screen pt-24 pb-16">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
         {/* Back link */}
