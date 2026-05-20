@@ -115,19 +115,6 @@ export default function About() {
                 <div className="w-20 h-1.5 rounded-full bg-foreground/10" />
               </div>
 
-              {/* Available badge */}
-              <div className="absolute top-12 left-1/2 -translate-x-1/2 z-10">
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/20 backdrop-blur-sm border border-green-500/30 whitespace-nowrap">
-                  <div className="w-2 h-2 flex-shrink-0 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-green-400 text-xs font-medium">Available as freelancer</span>
-                </div>
-              </motion.div>
-              </div>
-
               {/* Photo placeholder */}
               <div className="aspect-[3/4] bg-muted/30 flex items-center justify-center">
                 <img

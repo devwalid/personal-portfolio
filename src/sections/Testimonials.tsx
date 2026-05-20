@@ -82,7 +82,7 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
 
 export default function Testimonials() {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
+    <section id="reviews" className="relative py-24 lg:py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
           {/* Left: Header (~1/3) */}

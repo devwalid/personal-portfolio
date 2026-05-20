@@ -15,7 +15,7 @@ const serviceOptions = [
   'Something else',
 ];
 
-const contactAsOptions = ['Creator', 'Brand', 'Agency'] as const;
+const contactAsOptions = ['Creator', 'Brand', 'Agency/Company'] as const;
 
 const socials = [
   {
@@ -329,7 +329,7 @@ export default function Contact() {
                       className="overflow-hidden"
                     >
                       <label htmlFor="company" className={cn(labelClass, 'pt-1')}>
-                        Company Name <span className="text-accent-red">*</span>
+                        Organization Name <span className="text-accent-red">*</span>
                       </label>
                       <input
                         id="company"
@@ -380,8 +380,8 @@ export default function Contact() {
                     'Submit'
                   )}
                 </motion.button>
-                <p className="text-center text-muted-foreground text-sm">
-                  Your info stays private.
+                <p className="text-center text-muted-foreground/70 text-xs italic">
+                  *Projects for dating or betting platforms or anything immoral are declined.
                 </p>
               </form>
             )}

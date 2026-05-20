@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import { getCloudinaryUrl } from '@/lib/cloudinary';
 
@@ -143,7 +143,7 @@ function VideoCard({ src }: { src: string }) {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-background">
+    <section className="relative min-h-screen flex items-start sm:items-center justify-center overflow-hidden pt-20 sm:pt-20 bg-background">
       {/* Ambient glow — dense warm light at top, matching reference */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none"
@@ -214,7 +214,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Hero text content — centered above columns */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 py-20 text-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 pt-4 pb-28 sm:py-20 text-center">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -281,6 +281,25 @@ export default function Hero() {
             >
               Get in Touch
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </motion.a>
+            <motion.a
+              href="#reviews"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="group/glow relative rounded-full p-[2px] overflow-hidden min-w-[180px]"
+            >
+              {/* Rotating glow gradient */}
+              <div
+                className="absolute inset-[-50%] animate-border-glow group-hover/glow:[animation-play-state:paused]"
+                style={{
+                  background: 'conic-gradient(from 0deg, transparent 0%, transparent 60%, #e11d48 75%, #ff4778 85%, #e11d48 95%, transparent 100%)',
+                }}
+              />
+              {/* Button inner */}
+              <span className="relative z-10 flex items-center justify-center gap-2 px-8 py-4 bg-background group-hover/glow:bg-accent-red/15 group-hover/glow:backdrop-blur-md rounded-full font-semibold text-lg text-foreground transition-all duration-300">
+                <Star className="w-5 h-5 fill-current" />
+                Reviews
+              </span>
             </motion.a>
           </motion.div>
         </motion.div>
